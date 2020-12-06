@@ -1,5 +1,6 @@
 // The heart schedules and emit ticks every 20 seconds.
 
+const { bindAllAuto } = require('../utils/bindAllAuto')
 var util = require(__dirname + '/../util');
 var log = require(util.dirs().core + 'log');
 
@@ -15,8 +16,8 @@ else
 
 var Heart = function() {
   this.lastTick = false;
-
-  _.bindAll(this);
+	
+	bindAllAuto(this);
 }
 
 util.makeEventEmitter(Heart);

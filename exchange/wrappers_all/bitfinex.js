@@ -1,4 +1,5 @@
 
+
 const Bitfinex = require("bitfinex-api-node");
 const _ = require('lodash');
 const moment = require('moment');
@@ -7,9 +8,10 @@ const Errors = require('../exchangeErrors');
 const retry = require('../exchangeUtils').retry;
 
 const marketData = require('./bitfinex-markets.json');
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
 
 var Trader = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;
@@ -276,14 +278,14 @@ Trader.prototype.cancelOrder = function(order_id, callback) {
 }
 
 Trader.prototype.getTrades = function(since, callback, descending) {
-  const processResponse = (err, data) => {  
+  const processResponse = (err, data) => {
     if (err) return callback(err);
 
     var trades = _.map(data, function(trade) {
       return {
-        tid: trade.tid, 
-        date:  trade.timestamp, 
-        price: +trade.price, 
+        tid: trade.tid,
+        date:  trade.timestamp,
+        price: +trade.price,
         amount: +trade.amount
       }
     });
@@ -291,9 +293,9 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     callback(undefined, descending ? trades : trades.reverse());
   };
 
-  var path = this.pair; 
-  if(since) 
-    path += '?limit_trades=2000'; 
+  var path = this.pair;
+  if(since)
+    path += '?limit_trades=2000';
 
   const handler = cb => this.bitfinex.trades(path, this.handleResponse('getTrades', cb));
   retry(null, handler, processResponse);

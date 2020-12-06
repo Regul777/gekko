@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
+
 var _ = require('lodash');
 var util = require('../../core/util.js');
 var config = util.getConfig();
@@ -9,7 +12,7 @@ var postgresUtil = require('./util');
 const { Query } = require('pg');
 
 var Reader = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.db = handle;
 }
 
@@ -89,7 +92,7 @@ Reader.prototype.mostRecentWindow = function(from, to, next) {
         to: mostRecent
       });
     });
-  });  
+  });
 }
 
 Reader.prototype.tableExists = function (name, next) {
@@ -107,7 +110,7 @@ Reader.prototype.tableExists = function (name, next) {
 
       next(null, result.rows.length === 1);
     });
-  });  
+  });
 }
 
 Reader.prototype.get = function(from, to, what, next) {
@@ -131,7 +134,7 @@ Reader.prototype.get = function(from, to, what, next) {
       done();
       next(null, rows);
     });
-  });  
+  });
 }
 
 Reader.prototype.count = function(from, to, next) {
@@ -154,7 +157,7 @@ Reader.prototype.count = function(from, to, next) {
       done();
       next(null, _.first(rows).count);
     });
-  });  
+  });
 }
 
 Reader.prototype.countTotal = function(next) {
@@ -171,7 +174,7 @@ Reader.prototype.countTotal = function(next) {
       done();
       next(null, _.first(rows).count);
     });
-  });  
+  });
 }
 
 Reader.prototype.getBoundry = function(next) {
@@ -198,7 +201,7 @@ Reader.prototype.getBoundry = function(next) {
       done();
       next(null, _.first(rows));
     });
-  });  
+  });
 }
 
 Reader.prototype.close = function() {

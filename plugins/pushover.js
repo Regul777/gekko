@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 var push = require( 'pushover-notifications' );
 var _ = require('lodash');
 var log = require('../core/log.js');
@@ -6,7 +9,7 @@ var config = util.getConfig();
 var pushoverConfig = config.pushover;
 
 var Pushover = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.p;
   this.price = 'N/A';

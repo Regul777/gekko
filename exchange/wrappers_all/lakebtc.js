@@ -1,11 +1,13 @@
+
 var Lakebtc = require("lakebtc_nodejs");
 var util = require('../core/util.js');
 var _ = require('lodash');
 var moment = require('moment');
 var log = require('../core/log');
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
 
 var Trader = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;

@@ -2,6 +2,9 @@
   The Portfolio class holds data about the portfolio
 */
 
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 const _ = require('lodash');
 const async = require('async');
 const errors = require('./exchangeErrors');
@@ -9,7 +12,7 @@ const errors = require('./exchangeErrors');
 
 class Portfolio {
   constructor(config, api) {
-    _.bindAll(this);
+	  bindAllAuto(this);
     this.config = config;
     this.api = api;
     this.balances = {};

@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 var _ = require('lodash');
 var log = require('../core/log.js');
 var util = require('../core/util.js');
@@ -8,7 +11,7 @@ var TwitterApi = require('twitter');
 require('dotenv').config()
 
 var Twitter = function(done) {
-    _.bindAll(this);
+	bindAllAuto(this);
 
     this.twitter;
     this.price = 'N/A';
@@ -70,7 +73,7 @@ Twitter.prototype.mail = function(content, done) {
       } else if(response && response.active){
           log.info('Twitter Message Sent')
       }
-    }); 
+    });
 };
 
 Twitter.prototype.checkResults = function(err) {

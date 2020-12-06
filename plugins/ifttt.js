@@ -1,3 +1,4 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
 const superagent = require('superagent');
 const _ = require('lodash');
 const log = require('../core/log.js');
@@ -6,7 +7,7 @@ const config = util.getConfig();
 const iftttConfig = config.ifttt;
 
 const IFTTT = function(done) {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.ifttt;
   this.price = 'N/A';
   this.done = done;

@@ -7,6 +7,8 @@
 // > As much as I wanted to be Gordon Gekko, I'll *always* be Bud Fox.
 // > [tosses back the handkerchief and walks away]
 
+
+
 var _ = require('lodash');
 var async = require('async');
 
@@ -16,9 +18,10 @@ var dirs = util.dirs();
 var Heart = require(dirs.budfox + 'heart');
 var MarketDataProvider =  require(dirs.budfox + 'marketDataProvider');
 var CandleManager = require(dirs.budfox + 'candleManager');
+const { bindAllAuto } = require('../utils/bindAllAuto')
 
 var BudFox = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   Readable.call(this, {objectMode: true});
 

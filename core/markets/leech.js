@@ -2,6 +2,8 @@
 // database (which is expected to be updated regularly, like with a
 // realtime market running in parallel).
 
+
+
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -33,8 +35,8 @@ else
 
 
 var Market = function() {
-
-  _.bindAll(this);
+	
+	bindAllAuto(this);
 
   Readable.call(this, {objectMode: true});
 
@@ -80,10 +82,10 @@ Market.prototype.processCandles = function(err, candles) {
   // if `this.latestTs` was at 10:00 and we receive 3 candles with the latest at 11:00
   // we know we are missing 57 candles...
 
-  _.each(candles, function(c, i) {
+  _.each(candles, (c, i) => {
     c.start = moment.unix(c.start).utc();
     this.push(c);
-  }, this);
+  });
 
   this.latestTs = _.last(candles).start.unix() + 1;
 }

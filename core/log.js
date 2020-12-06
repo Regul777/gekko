@@ -6,6 +6,8 @@
 
 */
 
+const { bindAllAuto } = require('./utils/bindAllAuto')
+
 var moment = require('moment');
 var fmt = require('util').format;
 var _ = require('lodash');
@@ -28,7 +30,7 @@ var sendToParent = function() {
 }
 
 var Log = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.env = util.gekkoEnv();
 
   if(this.env === 'standalone')
@@ -66,7 +68,7 @@ Log.prototype = {
 
 if(debug)
   Log.prototype.debug = function() {
-    this._write('info', arguments, 'DEBUG');  
+    this._write('info', arguments, 'DEBUG');
   }
 else
   Log.prototype.debug = _.noop;

@@ -1,3 +1,5 @@
+
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
 const _ = require('lodash');
 const moment = require('moment');
 const retry = require('../exchangeUtils').retry;
@@ -13,7 +15,7 @@ const marketData = require('./exmo-markets.json');
 
 
 const Trader = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.key="";
   this.secret="";
   
@@ -59,7 +61,7 @@ Trader.prototype.api_query = function(method, params, callback){
 	
  	request.post(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            data=JSON.parse(body);          
+            data=JSON.parse(body);
             if(data.error) error = { message: data.error }
             else if (data.result!=undefined && data.result==false)  error = { message: '"result": false' } ;
             callback(error, data);
@@ -84,7 +86,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
 
     data=data[this.pair];
 
-    var parsedTrades =  _.map(data, function(trade) {   
+    var parsedTrades =  _.map(data, function(trade) {
         return {
           tid: trade.trade_id,
           date: trade.date,
@@ -98,7 +100,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
   };
 
   const fetch = cb => this.api_query("trades", { pair: this.pair} , cb);
-  retry(null, fetch, processResponse); 
+  retry(null, fetch, processResponse);
 
 }
 
@@ -152,7 +154,7 @@ Trader.prototype.sell = function(amount, price, callback) {
 Trader.prototype.getOrder = function(order_id, callback) {
   const processResponse = (err, data) => {
 
-    if(err) 
+    if(err)
       return callback(err);
 
     data=data[this.pair];
@@ -167,13 +169,13 @@ Trader.prototype.getOrder = function(order_id, callback) {
   }
 
   const fetch = cb => this.api_query("user_trades", { pair: this.pair} , cb);
-  retry(null, fetch, processResponse); 
+  retry(null, fetch, processResponse);
 }
 
 Trader.prototype.checkOrder = function(order_id, callback) {
   const processResponse = (err, data) => {
 
-    if(err) 
+    if(err)
       return callback(err);
 
     data=data[this.pair];
@@ -183,7 +185,7 @@ Trader.prototype.checkOrder = function(order_id, callback) {
     }
 
     const order = _.find(data, function(o) { return o.order_id === +order_id });
-    if(!order) 
+    if(!order)
       return callback(undefined, { executed: true, open: false });
 
     callback(undefined, { executed: false, open: true /*, filledAmount: order.startingAmount - order.amount*/ });

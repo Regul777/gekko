@@ -10,27 +10,11 @@ const scientificToDecimal = exchangeUtils.scientificToDecimal;
 const Binance = require('binance');
 
 const Trader = function(config) {
-  
   _.bindAll(this, [
     'roundAmount',
     'roundPrice',
     'isValidPrice',
-    'isValidLot',
-    'handleResponse',
-    'getTrades',
-    'getPortfolio',
-    'getFee',
-    'getTicker',
-    'getPrecision',
-    'round',
-    'outbidPrice',
-    'addOrder',
-    'getOpenOrders',
-    'getOrder',
-    'buy',
-    'sell',
-    'checkOrder',
-    'cancelOrder',
+    'isValidLot'
   ]);
 
   if (_.isObject(config)) {

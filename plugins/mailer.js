@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 var email = require("emailjs");
 var _ = require('lodash');
 var log = require('../core/log.js');
@@ -6,7 +9,7 @@ var config = util.getConfig();
 var mailConfig = config.mailer;
 
 var Mailer = function(done) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.server;
   this.price = 'N/A';

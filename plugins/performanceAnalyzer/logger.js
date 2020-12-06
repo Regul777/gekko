@@ -88,7 +88,7 @@ if(mode === 'backtest') {
     log.info('(ROUNDTRIP) REPORT:');
 
     this.logRoundtripHeading();
-    _.each(this.roundtrips, this.logRoundtrip, this);
+    _.each(this.roundtrips, (rt) => this.logRoundtrip(rt));
 
     log.info()
     log.info(`(PROFIT REPORT) start time:\t\t\t ${report.startTime}`);

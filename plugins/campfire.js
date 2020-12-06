@@ -1,11 +1,14 @@
+
+
 var _ = require('lodash');
 var Moment = require('moment');
 var Ranger = require('ranger');
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
 
 var config = require('../core/util').getConfig().campfire;
 
 var Actor = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.commands = [{
     'handler': 'advice',
@@ -86,9 +89,9 @@ Actor.prototype = {
   },
 
   pasteDescriptions: function() {
-    var descriptions = _.map(this.commands, function(command) {
+    var descriptions = _.map(this.commands, (command) => {
       return [command.handler + ':', command.description].join(' ');
-    }, this).join('\n');
+    }).join('\n');
 
     this.room.paste(descriptions);
   },
@@ -106,11 +109,11 @@ Actor.prototype = {
     if (message.userId === this.user.id) return false; // Make the bot ignore itself
     if (message.body === null) return false; // Handle weird cases where body is null sometimes
 
-    _.each(this.commands, function(command) {
+    _.each(this.commands, (command) => {
       if (this.textHasCommandForBot(message.body, config.nickname, command.handler)) {
         command.callback();
       }
-    }, this);
+    });
   },
 
   textHasCommandForBot: function(text, nickname, handler) {

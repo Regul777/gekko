@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
+
 var _ = require('lodash');
 const log = require('../../core/log');
 const util = require('../../core/util');
@@ -7,7 +10,7 @@ var handle = require('./handle');
 var postgresUtil = require('./util');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.done = done;
   this.db = handle;
   this.cache = [];
@@ -22,15 +25,15 @@ Store.prototype.writeCandles = function() {
   //log.debug('Writing candles to DB!');
   _.each(this.cache, candle => {
     var stmt =  `
-    BEGIN; 
-    LOCK TABLE ${postgresUtil.table('candles')} IN SHARE ROW EXCLUSIVE MODE; 
-    INSERT INTO ${postgresUtil.table('candles')} 
-    (start, open, high,low, close, vwp, volume, trades) 
-    VALUES 
-    (${candle.start.unix()}, ${candle.open}, ${candle.high}, ${candle.low}, ${candle.close}, ${candle.vwp}, ${candle.volume}, ${candle.trades}) 
-    ON CONFLICT ON CONSTRAINT ${postgresUtil.startconstraint('candles')} 
-    DO NOTHING; 
-    COMMIT; 
+    BEGIN;
+    LOCK TABLE ${postgresUtil.table('candles')} IN SHARE ROW EXCLUSIVE MODE;
+    INSERT INTO ${postgresUtil.table('candles')}
+    (start, open, high,low, close, vwp, volume, trades)
+    VALUES
+    (${candle.start.unix()}, ${candle.open}, ${candle.high}, ${candle.low}, ${candle.close}, ${candle.vwp}, ${candle.volume}, ${candle.trades})
+    ON CONFLICT ON CONSTRAINT ${postgresUtil.startconstraint('candles')}
+    DO NOTHING;
+    COMMIT;
     `;
 
     this.db.connect((err,client,done) => {

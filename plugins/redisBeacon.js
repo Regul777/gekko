@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 var log = require('../core/log.js');
 var util = require('../core/util');
 var config = util.getConfig();
@@ -10,7 +13,7 @@ var _ = require('lodash');
 var redis = require("redis");
 
 var Actor = function(done) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.market = [
     watch.exchange,
@@ -23,14 +26,14 @@ var Actor = function(done) {
 
 // This actor is dynamically build based on
 // what the config specifies it should emit.
-// 
+//
 // This way we limit overhead because Gekko
 // only binds to events redis is going to
 // emit.
 
 var proto = {};
-_.each(redisBeacon.broadcast, function(e) {
-  // grab the corresponding subscription 
+_.each(redisBeacon.broadcast, (e) => {
+  // grab the corresponding subscription
   var subscription = _.find(subscriptions, function(s) { return s.event === e });
 
   if(!subscription)
@@ -48,7 +51,7 @@ _.each(redisBeacon.broadcast, function(e) {
     }, cb);
   };
 
-}, this)
+})
 
 Actor.prototype = proto;
 

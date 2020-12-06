@@ -57,7 +57,7 @@ var pluginHelper = {
     return error;
   },
   // loads a plugin
-  // 
+  //
   // @param Object plugin
   //    plugin config object
   // @param Function next
@@ -69,7 +69,7 @@ var pluginHelper = {
     if(!plugin.config || !plugin.config.enabled)
       return next();
 
-    if(!_.contains(plugin.modes, gekkoMode)) {
+    if(!_.includes(plugin.modes, gekkoMode)) {
       log.warn(
         'The plugin',
         plugin.name,
@@ -108,7 +108,7 @@ var pluginHelper = {
 
       instance.meta = plugin;
       _.defer(function() {
-        next(null, instance); 
+        next(null, instance);
       });
     }
 

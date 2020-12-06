@@ -1,3 +1,5 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
 const Kraken = require('kraken-api');
 const moment = require('moment');
 const _ = require('lodash');
@@ -8,7 +10,7 @@ const scientificToDecimal = exchangeUtils.scientificToDecimal;
 const marketData = require('./kraken-markets.json');
 
 const Trader = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   if(_.isObject(config)) {
     this.key = config.key;
@@ -185,7 +187,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     if (err) return callback(err);
 
     var parsedTrades = [];
-    _.each(trades.result[this.pair], function(trade) {
+    _.each(trades.result[this.pair], (trade) => {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment.unix(trade[2]).valueOf()) {
         parsedTrades.push({
@@ -195,7 +197,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
           amount: parseFloat(trade[1])
         });
       }
-    }, this);
+    });
 
     if(descending)
       callback(undefined, parsedTrades.reverse());

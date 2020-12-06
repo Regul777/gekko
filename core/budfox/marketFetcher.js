@@ -6,6 +6,9 @@
 // - `trades batch` - all new trades.
 // - `trade` - the most recent trade after every fetch
 
+const { bindAllAuto } = require('../utils/bindAllAuto')
+
+
 const _ = require('lodash');
 const moment = require('moment');
 const utc = moment.utc;
@@ -24,7 +27,7 @@ const Fetcher = function(config) {
 
   const exchangeName = config.watch.exchange.toLowerCase();
   const DataProvider = require(util.dirs().gekko + 'exchange/wrappers/' + exchangeName);
-  _.bindAll(this);
+	bindAllAuto(this);
 
   // Create a public dataProvider object which can retrieve live
   // trade information from an exchange.

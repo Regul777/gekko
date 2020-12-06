@@ -1,10 +1,13 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 var log = require('../core/log');
 var moment = require('moment');
 var _ = require('lodash');
 var Server = require('../web/server.js');
 
 var Actor = function(next) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.server = new Server();
   this.server.setup(next);

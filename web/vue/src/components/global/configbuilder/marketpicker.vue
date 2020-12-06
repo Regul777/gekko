@@ -30,7 +30,7 @@ export default {
   data: () => {
     return {
       // defaults:
-      exchange: 'poloniex',
+      exchange: 'binance',
       currency: 'USDT',
       asset: 'BTC',
     };

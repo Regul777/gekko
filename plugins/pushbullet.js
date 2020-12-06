@@ -4,6 +4,9 @@
  */
 
 
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 /**
 Required Config:
 
@@ -39,7 +42,7 @@ var config = util.getConfig();
 var pbConf = config.pushbullet;
 
 var Pushbullet = function(done) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.pusher;
   this.price = 'N/A';

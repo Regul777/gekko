@@ -2,6 +2,8 @@
  * Created by billymcintosh on 24/12/17.
  */
 
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
 var _ = require('lodash');
 var request = require('request');
 var log = require('../core/log.js');
@@ -10,7 +12,7 @@ var config = util.getConfig();
 var kodiConfig = config.kodi;
 
 var Kodi = function(done) {
-    _.bindAll(this);
+	bindAllAuto(this);
 
     this.exchange = config.watch.exchange.charAt().toUpperCase() + config.watch.exchange.slice(1)
 

@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
+
 const _ = require('lodash');
 const util = require('../../core/util.js');
 const config = util.getConfig();
@@ -10,8 +13,8 @@ const Broker = require(dirs.broker + '/gekkoBroker');
 require(dirs.gekko + '/exchange/dependencyCheck');
 
 const Trader = function(next) {
-
-  _.bindAll(this);
+	
+	bindAllAuto(this);
 
   this.brokerConfig = {
     ...config.trader,

@@ -1,10 +1,13 @@
+
+
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
 const errors = require('./exchangeErrors');
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
 
 const Checker = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
 }
 
 Checker.prototype.getExchangeCapabilities = function(slug) {
@@ -87,10 +90,10 @@ Checker.prototype.cantTrade = function(conf) {
     return '"your-secret" is not a valid API secret';
 
   var error = false;
-  _.each(exchange.requires, function(req) {
+  _.each(exchange.requires, (req) => {
     if(!conf[req])
       error = name + ' requires "' + req + '" to be set in the config';
-  }, this);
+  });
 
   return error;
 }

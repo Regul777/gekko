@@ -1,14 +1,17 @@
+
+
 var log = require('../core/log');
 var moment = require('moment');
 var _ = require('lodash');
 var util = require('../core/util.js');
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
 var config = util.getConfig();
 var adviceLoggerConfig = config.adviceLogger;
 
 var Actor = function() {
   this.price = 'N/A';
   this.marketTime = {format: function() {return 'N/A'}};
-  _.bindAll(this);
+  bindAllAuto(this);
 }
 
 Actor.prototype.processCandle = function(candle, done) {

@@ -1,12 +1,15 @@
+
+
 const fsw = require('fs');
 const _ = require('lodash');
 const log = require('../core/log.js');
 const util = require('../core/util.js');
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
 const config = util.getConfig();
 const blotterConfig = config.blotter;
 
 var Blotter = function(done) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.time;
   this.valueAtBuy = 0.0;
@@ -34,7 +37,7 @@ Blotter.prototype.setup = function(done) {
           log.error('Unable to write header text to blotter');
         }
       });
-    } 
+    }
   });
 
 };
@@ -105,14 +108,14 @@ Blotter.prototype.processRoundtrip = function(trip) {
     return;
   }
 
-  // 1969/1970 sell trade error not written to blotter, resetting flag to false 
+  // 1969/1970 sell trade error not written to blotter, resetting flag to false
   this.tradeError = false;
 }
 
 Blotter.prototype.roundUp = function(value) {
-  var cents = value * 100; 
-  var roundedCents = Math.round(cents); 
-  return roundedCents / 100; 
+  var cents = value * 100;
+  var roundedCents = Math.round(cents);
+  return roundedCents / 100;
 }
 
 module.exports = Blotter;

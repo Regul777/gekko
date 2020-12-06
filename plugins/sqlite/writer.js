@@ -7,7 +7,7 @@ var util = require('../../core/util');
 var log = require('../../core/log');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+  _.bindAll(this, ['upsertTables', 'writeCandles']);
   this.done = done;
 
   this.db = sqlite.initDB(false);
@@ -43,9 +43,9 @@ Store.prototype.upsertTables = function() {
 
   var next = _.after(_.size(createQueries), this.done);
 
-  _.each(createQueries, function(q) {
+  _.each(createQueries, (q) => {
     this.db.run(q, next);
-  }, this);
+  });
 }
 
 Store.prototype.writeCandles = function() {
@@ -92,7 +92,7 @@ Store.prototype.writeCandles = function() {
 
 var processCandle = function(candle, done) {
   this.cache.push(candle);
-  if (!this.buffered || this.cache.length > 1000) 
+  if (!this.buffered || this.cache.length >= (config.candleWriter.cacheSize || 1000))
     this.writeCandles();
 
   done();

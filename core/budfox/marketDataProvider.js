@@ -1,9 +1,12 @@
-// 
+//
 // The market data provider will fetch data from a datasource on tick. It emits:
-// 
+//
 // - `trades`: batch of newly detected trades
 // - `trade`: after Gekko fetched new trades, this
 //   will be the most recent one.
+
+const { bindAllAuto } = require('../utils/bindAllAuto')
+
 
 const _ = require('lodash');
 const util = require(__dirname + '/../util');
@@ -12,8 +15,8 @@ const MarketFetcher = require('./marketFetcher');
 const dirs = util.dirs();
 
 const Manager = function(config) {
-
-  _.bindAll(this);
+	
+	bindAllAuto(this);
 
   // fetch trades
   this.source = new MarketFetcher(config);

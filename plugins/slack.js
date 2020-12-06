@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 const WebClient = require('@slack/client').WebClient;
 const _ = require('lodash');
 const log = require('../core/log.js');
@@ -6,7 +9,7 @@ const config = util.getConfig();
 const slackConfig = config.slack;
 
 const Slack = function(done) {
-    _.bindAll(this);
+	bindAllAuto(this);
 
     this.slack;
     this.price = 'N/A';

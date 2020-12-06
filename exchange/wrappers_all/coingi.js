@@ -1,3 +1,5 @@
+
+
 var Coingi = require('coingi');
 var moment = require('moment');
 var _ = require('lodash');
@@ -5,10 +7,11 @@ var _ = require('lodash');
 var util = require('../core/util');
 var Errors = require('../core/error');
 var log = require('../core/log');
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
 
 
 var Trader = function (config) {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   if (_.isObject(config)) {
     this.key = config.key;
@@ -102,7 +105,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
     }
 
     var parsedTrades = [];
-    _.each(trades, function (trade) {
+    _.each(trades, (trade) => {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment(trade.timestamp).valueOf()) {
         parsedTrades.push({
@@ -113,7 +116,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
           tid: trade.timestamp
         });
       }
-    }, this);
+    });
 
     if(ascending)
       callback(undefined, parsedTrades);

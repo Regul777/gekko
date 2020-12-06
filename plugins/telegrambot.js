@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../core/utils/bindAllAuto')
+
+
 const log = require('../core/log');
 const moment = require('moment');
 const _ = require('lodash');
@@ -8,7 +11,7 @@ const utc = moment.utc;
 const telegram = require("node-telegram-bot-api");
 
 const Actor = function() {
-  _.bindAll(this);
+	bindAllAuto(this);
 
   this.advice = null;
   this.adviceTime = utc();
@@ -75,7 +78,7 @@ if(emitTrades) {
   }
   
   Actor.prototype.processTradeCompleted = function (tradeCompleted) {
-    var message = 'Trade completed. ID: ' + tradeCompleted.id + 
+    var message = 'Trade completed. ID: ' + tradeCompleted.id +
     '\nAction: ' + tradeCompleted.action +
     '\nPrice: ' + tradeCompleted.price +
     '\nAmount: ' + tradeCompleted.amount +
@@ -84,7 +87,7 @@ if(emitTrades) {
     '\nBalance: ' + tradeCompleted.balance +
     '\nFee percent: ' + tradeCompleted.feePercent +
     '\nEffective price: ' + tradeCompleted.effectivePrice;
-    this.bot.sendMessage(this.chatId, message); 
+    this.bot.sendMessage(this.chatId, message);
   }
 }
 

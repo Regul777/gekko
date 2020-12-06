@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
+
 var _ = require('lodash');
 var util = require('../../core/util.js');
 var log = require(`${util.dirs().core}log`);
@@ -6,7 +9,7 @@ var handle = require('./handle');
 var mongoUtil = require('./util');
 
 var Reader = function Reader () {
-  _.bindAll(this);
+	bindAllAuto(this);
   this.db = handle;
   this.collection = this.db.collection(mongoUtil.settings.historyCollection);
   this.pair = mongoUtil.settings.pair.join('_');

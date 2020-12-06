@@ -1,3 +1,6 @@
+const { bindAllAuto } = require('../../core/utils/bindAllAuto')
+
+
 const Poloniex = require("gekko-broker-poloniex");
 const _ = require('lodash');
 const moment = require('moment');
@@ -5,7 +8,7 @@ const retry = require('../exchangeUtils').retry;
 const marketData = require('./poloniex-markets.json');
 
 const Trader = function(config) {
-  _.bindAll(this);
+	bindAllAuto(this);
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;
@@ -369,7 +372,7 @@ Trader.prototype.createOrder = function(side, amount, price, callback) {
   const fetch = next => {
     this.poloniex[side](this.currency, this.asset, price, amount, this.processResponse(next, 'order', side))
   };
-  retry(null, fetch, handle);  
+  retry(null, fetch, handle);
 }
 
 Trader.prototype.buy = function(amount, price, callback) {
